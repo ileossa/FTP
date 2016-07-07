@@ -11,6 +11,9 @@
 
 typedef struct sockaddr_in server_struct;
 
-int* build_server( char* ip, int port);
-int* standby_accept_connection(int* socket_desc);
-void send_message(int* socket, char* message);
+int build_server();
+void bind_socket(int socket, struct sockaddr_in server);
+void infinity_receive(int socket);
+void send_to(int socket, char* msg);
+// int standby_accept_connection(int* socket_desc);
+// void send_message(int* socket, char* message);
