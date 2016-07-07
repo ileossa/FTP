@@ -1,3 +1,6 @@
+/* Ileossa 4 Juillet 2016
+* pour compiler gcc server.c -lpthread -o server
+*/
 #include<stdio.h>
 #include<string.h>    //strlen
 #include<stdlib.h>    //strlen
@@ -6,10 +9,11 @@
 #include<unistd.h>    //write
  
 #include<pthread.h> //for threading , link with lpthread
+
  
 void *connection_handler(void *);
  
-int main(int argc , char *argv[])
+int server()
 {
     int socket_desc , new_socket , c , *new_sock;
     struct sockaddr_in server , client;
@@ -84,19 +88,25 @@ void *connection_handler(void *socket_desc)
     int read_size;
     char *message , client_message[2000];
      
-    //Send some messages to the client
-    message = "Greetings! I am your connection handler\n";
-    write(sock , message , strlen(message));
+    //exemple send message
+    //write(sock , message , strlen(message));
      
-    message = "Now type something and i shall repeat what you type \n";
-    write(sock , message , strlen(message));
+    
      
     //Receive a message from client
     while( (read_size = recv(sock , client_message , 2000 , 0)) > 0 )
     {
-        char result[20] = "a send you: ";
+        
+        printf("%s\n", client_message );
         //Send the message back to client
-        write(sock , result , strlen(result));
+        //write(sock , client_message , strlen(client_message));
+        if(strcmp("BONJ", client_message) != 0){
+            message = "WHO";            
+        } else if(strcmp("pass", client_message) != 0){
+            
+        }
+
+        write(sock , message , strlen(message));
     }
      
     if(read_size == 0)
@@ -114,3 +124,4 @@ void *connection_handler(void *socket_desc)
      
     return 0;
 }
+
