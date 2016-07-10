@@ -9,4 +9,5 @@
 #include <sys/types.h>
 #include <wait.h>
 
-void commande(char * cmd);
+
+char* commandes_local(int socket, char* commande);

@@ -1,0 +1,11 @@
+wip: 
+j'essaye de lier tout les morceaux entre le server et les différents appels.
+creation de thread_client, qui permetras de faire les appels a la gestion des données  recus par le server. 
+
+Pour la gestions de message comme WHO, BON, PASS, ... c'est le fichier processing. c avec la methode processing_data(), 
+dedans j'ai été obligé de mettre en place une structure pour pouvoir retourné plusieur information comme le jalon et aussi le infos le msg à envoyer au client, le login recup ou bien le password.
+L 'appel du test sur le login&password se fait dans le processinf.c, et retourne 0 si OK.  sinon on soustrais -1 à attempt( global var dans le .h). 
+
+actuellement je n'ai pas testé et je ne sais pas si ma structure fonctionne correctement. 
+
+Commencer à enlever toutes les informations, tester, si ne fonctionne pas purger le processing pour debuter et rettester.

@@ -4,9 +4,8 @@
 #include <errno.h>
 #include <ctype.h>
 
-typedef enum Boolean { 
-	FALSE,
-	TRUE	
- }Boolean;
+#include "Credentials.h"
 
-int test_space(char* word);
+#define attempt 3
+
+processing_data* data_processing(char* msg_receive);

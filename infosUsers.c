@@ -77,7 +77,6 @@ static user_struct * get_contact (const char * filename)
                      infos->password = str_dup (token);
                      break;
                }
-
                ++i;
             }
          }

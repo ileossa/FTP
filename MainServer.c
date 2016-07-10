@@ -1,7 +1,5 @@
 #include "Server.h"
-#include "Credentials.h"
 #include "Chiffrement.h"
-#include "Commandes.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,6 +22,8 @@ int main(int argc , char *argv[])
 {
 	//create server
 	int status = build_server(IP_SERVER, PORT_SERVER);
-	
-	return status;
+	//read_file("toto", "tata"); 
+	// system("ls"); && popen()
+	//testCommande();
+	return 0;
 }
