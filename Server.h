@@ -10,12 +10,15 @@
 #include <wait.h>
 #include <pthread.h>
 
-#include "Commandes.h"
-#include "Credentials.h"
+#include "Processing.h"
 
 #define len_buffer_receive 200
 
 typedef struct sockaddr_in server_struct;
+
+
+
+
 
 int build_server(char* ip, int port);
 void bind_socket(int socket, struct sockaddr_in server);

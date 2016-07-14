@@ -23,7 +23,6 @@ int read_file(char* name, char* password)
    char* cred_concat = NULL;
    size_t len = 0;
    ssize_t read;
-   int result = 1;
 
    // test_space(name);
    // test_space(password);
@@ -48,14 +47,18 @@ int read_file(char* name, char* password)
       (test_credential_name(extract_name(line), name)) == 0)
       {
          printf("good %s : %s\n", name, password );
-         result = 0;
+         fclose(fp);
+         if (line)
+            free(line);
+         free(cred_concat); 
+         return 0;
       }     
    }
    fclose(fp);
    if (line)
       free(line);
    free(cred_concat); 
-   return result; 
+   return 1; 
 }
 
 

@@ -8,6 +8,13 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <wait.h>
+#include <assert.h>
 
 
-char* commandes_local(int socket, char* commande);
+char* commandes_local(char* commande);
+char* list_commandes_local(char* m);
+char* list_commandes_to(char* m);
+char* toto(char* c);
+
+char** str_split(char* a_str, const char a_delim);
+char* concat(char *s1, char *s2);

@@ -23,8 +23,7 @@ int build_server(char* ip, int port){
     listen(mysocket, 1);
     int consocket = accept(mysocket, (struct sockaddr *)&dest, &socksize);
   	
-  	// nom du thread
-  	pthread_t th1;
+  	
 
     while(consocket)
     {
@@ -37,18 +36,15 @@ int build_server(char* ip, int port){
         int *s = malloc(4);
         *s = consocket;
         // debut instance du thread
-        int statut = pthread_create( &th1 , NULL ,  test_thread , (void*) s);
+        // nom du thread
+        pthread_t th1;
+        int statut = pthread_create( &th1 , NULL ,  thread_client , (void*) s);
         if(statut < 0){
             perror("could not create thread");
             exit(2);
         }
-        
-
-        if(pthread_join(th1, NULL)) {
-        	printf("Error joing thread");
-        	exit(2);
-        }
-        close(consocket);
+       
+        // close(consocket);
         consocket = accept(mysocket, (struct sockaddr *)&dest, &socksize);
     }
 
@@ -57,41 +53,40 @@ int build_server(char* ip, int port){
 }
 
 
-void* test_thread(void* socket){
-    int sock = *(int*)socket;
-	printf("debut test thread\n");
-    send_to(sock, "thread test");
-    
-    char * m = infinity_receive(sock);
-    write(sock , m , strlen(m));
-	
-    m = infinity_receive(sock);
-	send_to(sock, m);
-
-	close(sock);
-	/* the function must return something - NULL will do */
-	return NULL;
-}
-
 
 void* thread_client(void* sock){
     int socket = *(int*)sock;
     char* msg_receive = NULL;
-    processing_data* res_proc = NULL;
+    char* tmp;
+    struct Processing_data* res_processing;
+    res_processing = init_processing();
     printf("thread client\n");
 
     while(1){
         //ecoute
         msg_receive = infinity_receive(socket);
-        if(strcmp(msg_receive, "client_close_connection") == 0){
-            printf("client close connection, exit thread");
-            return NULL;
+        res_processing->message = msg_receive;
+        int x=0;
+        for(x; msg_receive[x] != '\0'; ++x){
+            printf("msg : %c\n",msg_receive[x] );
         }
-        res_proc = data_processing(msg_receive);      
-        
+
+        if(strcmp(msg_receive, "client_close_connection") == 0){
+            printf("client close connection, close socket && exit thread");
+            close(socket);
+            pthread_exit(0);
+        }
+
+        res_processing = data_processing(res_processing);
+        printf("process: message: %s  jalon: %3i", res_processing->message, res_processing->jalon);
+        if(strcmp(res_processing->message, "BYE") == 0){
+            close(socket);
+            pthread_exit(0);
+        }
         //j envoie le msg
-        send_to(int socket, res_proc.message);
-    }
+        tmp = res_processing->message;
+        send_to(socket, tmp);
+    }    
     return NULL;
 }
 
@@ -105,6 +100,8 @@ char* infinity_receive(int socket){
         return "client_close_connection";
     }
     printf("client msg: %s", receive_msg);
+    int len = strlen(receive_msg);
+    receive_msg[len-2] = '\0';
     return receive_msg;
 }
 
@@ -124,6 +121,23 @@ void bind_socket(int socket, struct sockaddr_in server){
 	printf("Server Up\n");
 }
 
+
+
+void* test_thread(void* socket){
+    int sock = *(int*)socket;
+    printf("debut test thread\n");
+    send_to(sock, "thread test");
+    
+    char * m = infinity_receive(sock);
+    write(sock , m , strlen(m));
+    
+    m = infinity_receive(sock);
+    send_to(sock, m);
+
+    close(sock);
+    /* the function must return something - NULL will do */
+    return NULL;
+}
 
 
 // void *connection_handler(void *socket_desc)
