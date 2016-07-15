@@ -2,19 +2,11 @@
 
 
 
-char* commandes_local(char* commande){
-	printf("commande start with %s", commande);
-	int len = strlen(commande);
-    commande[len-2] = '\0';
-	int x = 0;
-	for(x; commande[x] != '\0'; ++x){
-            printf("msg : %c\n",commande[x] );
-        }
-
+char* commandes_local(char* commande){ 
 	FILE* in;
 	extern FILE* popen();
-	char* buff = malloc(sizeof("2048"));
-	char* s = malloc(sizeof("caca"));
+	char* buff = malloc(sizeof("just do it"));
+	char* s = malloc(sizeof("just do it"));
 	s="";
 
 
@@ -23,14 +15,10 @@ char* commandes_local(char* commande){
 		exit(1);
 	}
 
-	while(fgets(buff, sizeof(buff), in)!=NULL){
-		printf("MY : : : :    %s", buff);
-		//send_to(socket, buff);
+	while(fgets(buff, sizeof(buff), in)!=NULL){	
 		s = concat(s, buff);
 	}
-	pclose(in);
-	printf("end commande buff: %s\n", buff);
-	printf("SSO: %s\n",s );
+	pclose(in);	
 	commande = s;
 	return commande;
 }
@@ -38,54 +26,40 @@ char* commandes_local(char* commande){
 
 
 
-char* list_commandes_local(char* m){
-	printf("caca : %s\n", m);
+void list_commandes_local(char* m){
+    char* res = m;
 
-	char* res = malloc(sizeof("caca"));
-	res = "toto";
-	
-	int i = strcmp(m, "ls") == 0;
-	int ip = (strcmp(m, "pwd") == 0);
-	printf("caca i: %i\n", i);
-	printf("caca ip: %i\n", ip);
-	if(  i == 0 || ip == 0){
-		m=  commandes_local(m);
-		return toto(m);
-		
-		// printf("res : %s\n", res);
-		// return res;
-	}
+    int pwd = strcmp(m, "pwd");
+    int ls = strcmp(m, "ls");
 
-	char** sm = str_split(m,' ');
- 
-	if(strcmp(sm[0], "cd")){
-		
-	}
-	if(strcmp(sm[0], "rm")){
-		
-	}
-	printf("caca res: %s\n", res);
-	return m;
+	if( ls == 0 || pwd == 0  ){
+		printf("%s\n",  commandes_local(m));
+	}else if (m[0] == 'r' && m[1] == 'm'){
+        printf("%s\n",  commandes_local(m));
+    }else{
+        printf("null commande for list commandes local");
+    }
 }
-
-char* toto(char* c){
-	printf("toto c: %s\n", c);
-	return c;
-}
-
 
 
 char* list_commandes_to(char* m){
-	char* res;
+	char* res = m;
 
-	if(strcmp(m, "rls") == 0 || (strcmp(m, "rpwd") == 0)){
-		//res = commandes_local(m);
-		return res;
+    int rpwd = strcmp(m, "rpwd");
+    int rls = strcmp(m, "rls");
+
+    printf("list_commandes_to\n" );
+    printf("m: %s\n", m );
+    printf("rpwd: %i\n", rpwd);
+    printf("rls: %i\n", rls);
+
+	if(strcmp(m, "rls") == 0 ){
+        return commandes_local("ls");
+    }else if (strcmp(m, "rpwd") == 0){
+		return commandes_local("pwd");
 	}
 
-	char** sm = str_split(m,' ');
-
-	return res;
+	return "null commande for list commandes distant";
 }
 
 
@@ -144,6 +118,37 @@ char** str_split(char* a_str, const char a_delim)
         assert(idx == count - 1);
         *(result + idx) = 0;
     }
-
     return result;
 }
+
+
+char* get_commande(){
+   char* chaine = malloc(sizeof(50));
+ 
+    printf("Entrez une chaine:\n");
+    fgets(chaine, sizeof(chaine), stdin);    
+    printf("Chaine: %s\n", chaine);
+    return chaine;
+}
+ 
+ 
+char* clean(char *c, int i){
+    int len = strlen(c);
+    c[len-i] = '\0'; 
+    return "c";
+}
+
+
+
+void  parse(char *line, char **argv)
+{
+    while (*line != '\0') {       /* if not the end of line ....... */ 
+        while (*line == ' ' || *line == '\t' || *line == '\n')
+            *line++ = '\0';     /* replace white spaces with 0    */
+        *argv++ = line;          /* save the argument position     */
+        while (*line != '\0' && *line != ' ' && *line != '\t' && *line != '\n') 
+           line++;             /* skip the argument until ...    */
+    }
+    *argv = '\0';                 /* mark the end of argument list  */
+}
+

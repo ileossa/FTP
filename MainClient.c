@@ -17,10 +17,11 @@
 #define MODE_SERVER "TCP"
 
 
+
 int main(int argc , char *argv[])
 {
 	//create server
-	int status = build_server(IP_SERVER, PORT_SERVER);
+	int status = build_client(IP_SERVER, PORT_SERVER);
 	//read_file("toto", "tata"); 
 	// system("ls"); && popen()
 	//testCommande();

@@ -12,9 +12,11 @@
 
 
 char* commandes_local(char* commande);
-char* list_commandes_local(char* m);
+void list_commandes_local(char* m);
 char* list_commandes_to(char* m);
-char* toto(char* c);
 
 char** str_split(char* a_str, const char a_delim);
 char* concat(char *s1, char *s2);
+
+char* get_commande();
+char* clean(char *c, int i);

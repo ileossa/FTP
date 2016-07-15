@@ -29,4 +29,5 @@ void send_to(int socket, char* msg);
 // int standby_accept_connection(int* socket_desc);
 // void send_message(int* socket, char* message);
 void* test_thread(void* socket);
-void* thread_client(void* sock);
+void fake_thread_client(int sock);
+void* thread_serveur(void* sock);

@@ -15,3 +15,7 @@ int test_credential_name( char* name_file, char* name_receive);
 int test_credential_password( char* password_file, char* password_receive);
 char* extract_name( char* line);
 char* extract_password( char* line);
+
+// client method
+char* get_login();
+char* get_password();
