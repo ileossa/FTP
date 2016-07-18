@@ -5,8 +5,8 @@
 char* commandes_local(char* commande){ 
 	FILE* in;
 	extern FILE* popen();
-	char* buff = malloc(sizeof("just do it"));
-	char* s = malloc(sizeof("just do it"));
+	char* buff = malloc(sizeof(255));
+	char* s = malloc(sizeof(255));
 	s="";
 
 
@@ -31,6 +31,7 @@ void list_commandes_local(char* m){
 
     int pwd = strcmp(m, "pwd");
     int ls = strcmp(m, "ls");
+    printf("list commande local m : %s\n",m );
 
 	if( ls == 0 || pwd == 0  ){
 		printf("%s\n",  commandes_local(m));
@@ -123,10 +124,10 @@ char** str_split(char* a_str, const char a_delim)
 
 
 char* get_commande(){
-   char* chaine = malloc(sizeof(50));
+   char* chaine = malloc(sizeof(255));
  
     printf("Entrez une chaine:\n");
-    fgets(chaine, sizeof(chaine), stdin);    
+    fgets(chaine, 255, stdin);    
     printf("Chaine: %s\n", chaine);
     return chaine;
 }

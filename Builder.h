@@ -12,7 +12,7 @@
 
 #include "Processing.h"
 
-#define len_buffer_receive 200
+
 
 typedef struct sockaddr_in server_struct;
 
@@ -29,5 +29,5 @@ void send_to(int socket, char* msg);
 // int standby_accept_connection(int* socket_desc);
 // void send_message(int* socket, char* message);
 void* test_thread(void* socket);
-void fake_thread_client(int sock);
+int fake_thread_client(int sock);
 void* thread_serveur(void* sock);

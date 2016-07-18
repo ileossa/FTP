@@ -4,7 +4,7 @@
 #include <errno.h>
 #include <ctype.h>
 
-#define essai 3
+
 
 #include "Generic.h"
 

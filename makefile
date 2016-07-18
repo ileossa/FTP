@@ -7,4 +7,4 @@ client: MainClient.c Commandes.c Commandes.h Builder.c Builder.h Processing.h Pr
 	gcc MainClient.c Commandes.c  Builder.c Credentials.c File.c Processing.c -lpthread -o client
 
 clean:
-	rm -f *.o p->message client
+	rm -f *.o server client

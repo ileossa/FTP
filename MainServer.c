@@ -11,10 +11,8 @@
 #include <sys/types.h>
 #include <wait.h>
 
-
-#define IP_SERVER "127.0.0.1"
-#define PORT_SERVER 2300
-#define MODE_SERVER "TCP"
+#include "GlobalValues.h"
+#include "File.h"
 
 
 int main(int argc , char *argv[])
@@ -24,5 +22,6 @@ int main(int argc , char *argv[])
 	//read_file("toto", "tata"); 
 	// system("ls"); && popen()
 	//testCommande();
+	//instance_receive_file("tt");
 	return 0;
 }

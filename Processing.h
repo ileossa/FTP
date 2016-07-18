@@ -6,8 +6,9 @@
 
 #include "Credentials.h"
 #include "Commandes.h"
+#include "GlobalValues.h"
 
-#define fix_attempt 3
+
 
 struct Processing_data
 {

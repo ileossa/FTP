@@ -93,7 +93,7 @@ char* extract_password(char* line){
 
 
 char* get_login(){
-   char* login = malloc(sizeof("azertyuiop"));
+   char* login = malloc(sizeof(255));
    printf("login: ");
    scanf("%s", login);
    return login;
@@ -102,7 +102,7 @@ char* get_login(){
 
 
 char* get_password(){
-   char* password = malloc(sizeof("azertyuiop"));
+   char* password = malloc(sizeof(255));
    printf("password: ");
    scanf("%s", password);
    return password;

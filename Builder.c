@@ -1,6 +1,6 @@
 #include "Builder.h"
 
-#define MAXSZ 100
+
 
 
 
@@ -60,8 +60,8 @@ int build_client(char* ip, int port){
     struct sockaddr_in serverAddress;//client will connect on this
 
     int n;
-    char* msg1 = malloc(sizeof("azertyyuiop"));
-    char* rcv = malloc(sizeof("azertyyuiop"));
+    char* msg1 = malloc(sizeof(255));
+    char* rcv = malloc(sizeof(255));
     
     //create socket
     mysocket=socket(AF_INET,SOCK_STREAM,0);
@@ -96,7 +96,7 @@ int build_client(char* ip, int port){
 }
 
 
-void fake_thread_client(int socket){    
+int fake_thread_client(int socket){    
     char* msg_receive;
     char* tmp;
     struct Processing_data* res_processing;
@@ -115,18 +115,28 @@ void fake_thread_client(int socket){
             printf("msg : %c\n",msg_receive[x]);
         }
 
-        if(strcmp(msg_receive, "server_close_connection") == 0){
-            printf("server close connection, close socket && exit thread");
-            close(socket);
-            pthread_exit(0);
-        }
-
+        
         res_processing = data_processing(res_processing);
+        if(strcmp(msg_receive, "BYE") == 0){
+            printf("Max attempt, deconnection\n");
+            close(socket);
+            return 0;
+        }
+        if(strcmp(msg_receive, "client_close_connection") == 0){
+            printf("Max attempt, deconnection\n");
+            close(socket);
+            return 0;
+        }
+         if(strcmp(msg_receive, "server_close_connection") == 0){
+            printf("server close connection, close socket && exit thread\n");
+            close(socket);
+            return 0;
+        }
         printf("process: message: %s  jalon: %3i\n", res_processing->message, res_processing->jalon);
         if(strcmp(res_processing->message, "BYE") == 0){
             printf("%s\n", res_processing->message );
             close(socket);
-            pthread_exit(0);
+            return 0;
         }
         //j envoie le msg
         tmp = res_processing->message;

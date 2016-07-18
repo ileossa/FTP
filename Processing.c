@@ -56,7 +56,7 @@ struct Processing_data* data_processing(struct Processing_data* p){
 	    case 2 : 
 	    	// server
 	    	if( p->message != NULL && p->message[0] != '\0' && strcmp(p->message, "WELC") != 0 ){
-	    		printf("21\n");
+	    		printf("2\n");
 	    		p->password = p->message;
 	    		if(read_file(p->login, p->password) == 0){
 	    			p->message = "WELC";
@@ -96,14 +96,17 @@ struct Processing_data* data_processing(struct Processing_data* p){
 			    	// int val;
 			    	
 			    	cmd = get_commande();
-			    	cmd[strlen(cmd)-1] = '\0';
+			    	
+			    	if(strlen(cmd)<=4)
+			    		cmd[strlen(cmd)-1] = '\0';
+			    	printf("processing cmd: %s\n", cmd);
 			    	printf("cmd 31 : %s\n",cmd );
 
-			    	if(cmd[0] == 'r'){
+			    	if(cmd[0] == 'r' && cmd[1] != 'm'){
 				    	p->message = cmd;
 			    	}else{
 			    		list_commandes_local(cmd);
-			    		p->message = "nop";
+			    		p->message = "cacahuete";
 
 			    	}	
 			    	p->jalon = 32;
